@@ -75,11 +75,11 @@ From here, you can log in, upload files, and view the VirusTotal scan results.
 
 ## Images
 
-![Login Page](images/login-page-screenshot.png)
+![Login Page](Images/Login_page.png)
 
-![File_upload](images/login-page-screenshot.png)
+![File_upload](Images/File_upload.png)
 
-![retrive_file_from_container](images/login-page-screenshot.png)
+![retrive_malware_from_container](Images/fetch_file_from_storage.png)
 
-![report](images/login-page-screenshot.png)
+![report](Images/report.png)
 
