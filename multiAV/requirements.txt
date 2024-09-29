@@ -1,4 +1,0 @@
-Django>=3.2.0
-requests
-python-dotenv
-load_dotenv
