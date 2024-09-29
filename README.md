@@ -83,3 +83,37 @@ From here, you can log in, upload files, and view the VirusTotal scan results.
 
 ![report](Images/report.png)
 
+---
+
+> **Note**: You must create your own `.env` file and add your **VirusTotal API key** to the environment variables.
+
+### Steps to set up your `.env` file:
+
+1. Create a `.env` file in the project root directory (same directory as `Dockerfile`).
+   
+```bash
+touch .env
+```
+
+Inside the .env file, add the following line with your VirusTotal API key.
+
+```bash
+VIRUSTOTAL_API_KEY=your_api_key_here
+```
+
+---
+
+> **Note**: If you encounter any bugs or issues, please report them by opening an issue on the GitHub repository.
+
+### How to Report a Bug:
+
+1. Go to the [Issues](https://github.com/your-repo/issues) section of this repository.
+2. Click on the **New Issue** button.
+3. Provide a clear and detailed description of the bug:
+   - Steps to reproduce the issue.
+   - Expected behavior.
+   - Actual behavior.
+   - Screenshots or error logs, if available.
+4. Submit the issue, and we'll address it as soon as possible.
+
+Your feedback helps improve the project!
