@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Display File</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background-color: #34495e;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            width: 1200px;
+            padding: 40px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2ecc71;
+        }
+
+        .form-label {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #27ae60;
+            border-color: #27ae60;
+            font-size: 20px;
+            padding: 10px 40px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #2ecc71;
+            border-color: #2ecc71;
+        }
+
+        .btn-primary:focus {
+            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.5);
+        }
+
+        .file-info {
+            font-size: 18px;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h5 class="card-title mb-4">Fetch and Display File</h5>
+        <form action="{% url 'dashboard' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="getfile" class="form-label">Enter File Name</label>
+                <input type="text" class="form-control" id="getfile" name="getfile" placeholder="Enter file name...">
+            </div>
+            <button class="btn btn-primary" type="submit">Fetch the File and Display</button>
+        </form>
+
+        {% if file_name %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">Fetched file name:</p>
+            <p>{{ file_name }}</p>
+        </div>
+        {% endif %}
+
+        {% if file_hash %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">Fetched file hash value:</p>
+            <p>{{ file_hash }}</p>
+        </div>
+        {% endif %}
+
+        {% if scan_fail %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">Scan fail with status:</p>
+            <p>{{ scan_fail }}</p>
+        </div>
+        {% endif %}
+
+        {% if no_file %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">File Not Found:</p>
+            <p>{{ no_file }}</p>
+        </div>
+        {% endif %}
+
+
+<!--         {% if file_report %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">Scan fail report:</p>
+            <p>{{ file_report }}</p>
+        </div>
+        {% endif %} -->
+
+             <!-- "method":"blacklist",
+               "engine_name":"Bkav",
+               "engine_version":"2.0.0.1",
+               "engine_update":"20240317",
+               "category":"undetected",
+               "result":"None" -->
+    <div class="card-body" style="overflow-y: auto; max-height: 300px;">
+        {% if file_report %}
+        <div class="file-info mt-4">
+            <p class="fw-bold">Scaned File report:</p>
+            {% for key, value in file_report.data.attributes.last_analysis_results.items %}
+                <div>
+                    {% if value.category == 'malicious' %}
+                        <p><strong>{{ key }}</strong></p>
+
+                        {% for sub_key, sub_value in value.items %}
+                            <ul>
+                                <li><strong>{{ sub_key }}:</strong> {{ sub_value }} </li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% if file_report.data.attributes.last_analysis_stats.malicious == 0 %}
+                <div>
+                    <p><strong>VirusTotal has determined that this file is safe as no malicious activity was detected by any of the scanning tools.</strong></p>
+                </div>
+            {% endif %}
+
+            <p><strong>Other Stats:</strong></p>
+            {% for key, value in file_report.data.attributes.last_analysis_stats.items %}
+                <div>
+                    <ul>
+                        <li><strong>{{ key }}:</strong> {{ value }} </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}       
+    </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
