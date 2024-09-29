@@ -40,10 +40,38 @@ Navigate to the AVGuard directory and build the Docker image for the Django-base
 
 ```bash
 cd AVGuard
-sudo docker build -t <YOUR-FRONTEND-IMAGE-NAME> .
+sudo docker build -t <FRONTEND-IMAGE-NAME> .
 ```
 Once built, run the container by linking it to the previously created Docker network.
 
 ```bash
-sudo docker run -d --name <YOUR-FRONTEND-IMAGE-NAME> --network avguard-network -p 8000:8000 <YOUR-FRONTEND-IMAGE-NAME>
+sudo docker run -d --name <FRONTEND-CONTAINER-NAME> --network avguard-network -p 8000:8000 <FRONTEND-IMAGE-NAME>
 ```
+
+### 4. Build and Run the Storage Server (Isolated Environment)
+
+Navigate to the storage_container directory to build the Docker image for the backend container, which securely stores uploaded malware files.
+
+```bash
+cd ../storage_container
+sudo docker build -t <SERVER-IMAGE-NAME> .
+```
+Run the backend container and connect it to the same network as the frontend.
+
+```bash
+sudo docker run -d --name <SERVER-CONTAINER-NAME> --network avguard-network <SERVER-IMAGE-NAME>
+```
+
+### 5. Access the Application
+
+Once both containers are running, open your browser and navigate to the following URL to access the application.
+
+``bash
+http://0.0.0.0:8000/login
+```
+From here, you can log in, upload files, and view the VirusTotal scan results.
+
+---
+
+## Images
+
