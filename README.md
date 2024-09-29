@@ -66,7 +66,7 @@ sudo docker run -d --name <SERVER-CONTAINER-NAME> --network avguard-network <SER
 
 Once both containers are running, open your browser and navigate to the following URL to access the application.
 
-``bash
+```bash
 http://0.0.0.0:8000/login
 ```
 From here, you can log in, upload files, and view the VirusTotal scan results.
@@ -74,4 +74,12 @@ From here, you can log in, upload files, and view the VirusTotal scan results.
 ---
 
 ## Images
+
+![Login Page](images/login-page-screenshot.png)
+
+![File_upload](images/login-page-screenshot.png)
+
+![retrive_file_from_container](images/login-page-screenshot.png)
+
+![report](images/login-page-screenshot.png)
 
